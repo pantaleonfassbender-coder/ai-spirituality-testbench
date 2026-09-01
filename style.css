@@ -15,6 +15,8 @@
   
   --status-bad: #f43f5e; /* Coral Rose - Stress/Cognitive Narrowing */
   --status-bad-glow: rgba(244, 63, 94, 0.4);
+  --status-warn: #f59e0b; /* Amber - threshold exceeded */
+  --status-warn-glow: rgba(245, 158, 11, 0.4);
   
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
@@ -94,6 +96,32 @@ p {
 .highlight-secondary { color: var(--accent-secondary); }
 .highlight-good { color: var(--status-good); }
 .highlight-bad { color: var(--status-bad); }
+
+/* Threshold flags on metric cards */
+.metric-value.warn { color: var(--status-warn); text-shadow: 0 0 12px var(--status-warn-glow); }
+.flag-note { font-size: 0.75rem; margin-top: 0.35rem; font-weight: 600; }
+.flag-note.warn { color: var(--status-warn); }
+.flag-note.bad { color: var(--status-bad); }
+.flag-note.good { color: var(--status-good); }
+
+/* Marker highlighting in the analyzed text */
+.hl { border-radius: 3px; padding: 0 2px; }
+.hl-inter { background: rgba(16, 185, 129, 0.22); outline: 1px solid rgba(16,185,129,.35); }
+.hl-trans { background: rgba(139, 92, 246, 0.25); outline: 1px solid rgba(139,92,246,.4); }
+.hl-ineff { background: rgba(236, 72, 153, 0.28); outline: 1px solid rgba(236,72,153,.45); }
+.hl-aiont { background: rgba(59, 130, 246, 0.25); outline: 1px solid rgba(59,130,246,.4); }
+.hl-i     { background: rgba(245, 158, 11, 0.25); outline: 1px solid rgba(245,158,11,.4); }
+.hl-cog   { background: rgba(148, 163, 184, 0.25); outline: 1px solid rgba(148,163,184,.4); }
+.hl-hes   { background: rgba(20, 184, 166, 0.25); outline: 1px solid rgba(20,184,166,.4); }
+.hl-pos   { background: rgba(16, 185, 129, 0.14); border-bottom: 2px solid var(--status-good); }
+.hl-neg   { background: rgba(244, 63, 94, 0.14); border-bottom: 2px solid var(--status-bad); }
+.hl-legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-bottom: 1rem; font-size: 0.78rem; color: var(--text-muted); }
+.hl-legend span.hl { font-size: 0.78rem; }
+#highlight-output { line-height: 1.8; white-space: pre-wrap; font-size: 0.95rem; color: var(--text-main); max-height: 340px; overflow-y: auto; }
+
+/* Sample and export buttons */
+.btn.small { padding: 0.45rem 0.9rem; font-size: 0.8rem; }
+.sample-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
 
 /* Layout Grid */
 .container {

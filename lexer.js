@@ -271,7 +271,9 @@ const Lexer = (function() {
     analyze,
     maskEchoes,
     tokenize,
-    stopWords
+    stopWords,
+    // Exposed for marker highlighting in the UI
+    dicts: { umsd, liwc, hesitation, valence }
   };
 
 })();
