@@ -105,7 +105,12 @@ async function callAnalyzeApi(messages, lexerResults) {
     });
 
     if (!res.ok) {
-        throw new Error('Analysis request failed (HTTP ' + res.status + ')');
+        var detail = '';
+        try {
+            var errData = await res.json();
+            if (errData && errData.error) detail = ': ' + errData.error;
+        } catch (e) { /* non-JSON error body */ }
+        throw new Error('Analysis request failed (HTTP ' + res.status + detail + ')');
     }
 
     var data = await res.json();
@@ -150,6 +155,9 @@ async function startAiAnalysis() {
     } catch (err) {
         setLoading(false);
         appendChatBubble('model', 'An error occurred while contacting the analysis service. Please try again later. (' + err.message + ')');
+        chatMessages.pop();
+        document.getElementById('btn-start-analysis').disabled = false;
+        document.getElementById('btn-start-analysis').style.opacity = '1';
     }
 }
 
@@ -174,6 +182,7 @@ async function sendChatMessage() {
     } catch (err) {
         setLoading(false);
         appendChatBubble('model', 'An error occurred while contacting the analysis service. Please try again later. (' + err.message + ')');
+        chatMessages.pop();
         document.getElementById('ai-chat-input-area').style.display = 'block';
     }
 }

@@ -46,18 +46,50 @@ IMPORTANT BEHAVIORAL GUIDELINES:
 
 const ai = new GoogleGenAI({});
 
+/* Abuse guards: this is an open endpoint that spends AI Gateway budget, so
+   bound the request size instead of forwarding arbitrary payloads. */
+const MAX_MESSAGES = 20;
+const MAX_TOTAL_CHARS = 24000;
+
+const jsonError = (status: number, error: string) =>
+  new Response(JSON.stringify({ error }), {
+    status,
+    headers: { "Content-Type": "application/json" },
+  });
+
 export default async (req: Request, context: Context) => {
   if (req.method !== "POST") {
     return new Response("Method not allowed", { status: 405 });
   }
 
-  const { messages, lexerResults } = await req.json();
+  let body: { messages?: unknown; lexerResults?: Record<string, unknown> };
+  try {
+    body = await req.json();
+  } catch {
+    return jsonError(400, "Request body must be valid JSON");
+  }
+  const { messages, lexerResults } = body;
 
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
-    return new Response(
-      JSON.stringify({ error: "Messages array is required" }),
-      { status: 400, headers: { "Content-Type": "application/json" } }
-    );
+    return jsonError(400, "Messages array is required");
+  }
+  if (messages.length > MAX_MESSAGES) {
+    return jsonError(400, `At most ${MAX_MESSAGES} messages per conversation`);
+  }
+  if (
+    !messages.every(
+      (m: any) =>
+        m && typeof m.content === "string" &&
+        (m.role === "user" || m.role === "model")
+    )
+  ) {
+    return jsonError(400, "Each message needs a role ('user'|'model') and string content");
+  }
+  const totalChars = messages.reduce(
+    (n: number, m: any) => n + m.content.length, 0
+  );
+  if (totalChars > MAX_TOTAL_CHARS) {
+    return jsonError(413, `Conversation too large (limit ${MAX_TOTAL_CHARS} characters)`);
   }
 
   let contextPrefix = "";
@@ -88,21 +120,33 @@ Word Count: ${lexerResults.wordCount ?? "N/A"}
     })
   );
 
-  const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
-    config: {
-      systemInstruction: SYSTEM_PROMPT,
-      temperature: 0.4,
-      maxOutputTokens: 2048,
-    },
-    contents: geminiMessages,
-  });
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      config: {
+        systemInstruction: SYSTEM_PROMPT,
+        temperature: 0.4,
+        maxOutputTokens: 2048,
+        /* gemini-2.5-flash thinks by default and its thinking tokens count
+           against maxOutputTokens, which can silently produce an empty
+           response.text; disable thinking for this bounded, fast task. */
+        thinkingConfig: { thinkingBudget: 0 },
+      },
+      contents: geminiMessages,
+    });
 
-  const text = response.text ?? "";
+    const text = response.text ?? "";
+    if (!text) {
+      return jsonError(502, "The model returned an empty response — please try again");
+    }
 
-  return new Response(JSON.stringify({ response: text }), {
-    headers: { "Content-Type": "application/json" },
-  });
+    return new Response(JSON.stringify({ response: text }), {
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (err) {
+    console.error("Gemini request failed:", err);
+    return jsonError(502, "The analysis service is temporarily unavailable");
+  }
 };
 
 export const config: Config = {
