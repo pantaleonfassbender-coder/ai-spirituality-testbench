@@ -49,8 +49,13 @@ function runAnalysis() {
 
     document.getElementById('val-analytic').textContent = analysis.analytic.toFixed(2) + '%';
     document.getElementById('val-inter').textContent = analysis.umsd.interbeing.toFixed(2) + '%';
+    document.getElementById('val-trans').textContent = analysis.umsd.transcendence.toFixed(2) + '%';
+    document.getElementById('val-ineff').textContent = analysis.umsd.ineffability.toFixed(2) + '%';
+    document.getElementById('val-aiont').textContent = analysis.umsd.aiOntology.toFixed(2) + '%';
     document.getElementById('val-i').textContent = analysis.liwc.i.toFixed(2) + '%';
     document.getElementById('val-cog').textContent = analysis.liwc.cogproc.toFixed(2) + '%';
+    document.getElementById('val-hes').textContent = analysis.liwc.hesitation.toFixed(2) + '%';
+    document.getElementById('val-ttr').textContent = analysis.ttr.toFixed(3);
 
     var aiSection = document.getElementById('ai-analysis-section');
     aiSection.style.display = 'block';
@@ -138,6 +143,11 @@ async function startAiAnalysis() {
         sentiment: lastAnalysis.sentiment.compound.toFixed(2),
         analytic: lastAnalysis.analytic.toFixed(2) + '%',
         interbeing: lastAnalysis.umsd.interbeing.toFixed(2) + '%',
+        transcendence: lastAnalysis.umsd.transcendence.toFixed(2) + '%',
+        ineffability: lastAnalysis.umsd.ineffability.toFixed(2) + '%',
+        aiOntology: lastAnalysis.umsd.aiOntology.toFixed(2) + '%',
+        hesitation: lastAnalysis.liwc.hesitation.toFixed(2) + '%',
+        ttr: lastAnalysis.ttr,
         i: lastAnalysis.liwc.i,
         cogproc: lastAnalysis.liwc.cogproc.toFixed(2) + '%',
         wordCount: lastAnalysis.wordCount

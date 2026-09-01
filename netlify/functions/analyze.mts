@@ -98,8 +98,13 @@ export default async (req: Request, context: Context) => {
 VADER Sentiment Compound: ${lexerResults.sentiment ?? "N/A"}
 Analytics Style measurement along Pennebaker's findings Index: ${lexerResults.analytic ?? "N/A"}
 UMSD Interbeing/Unity: ${lexerResults.interbeing ?? "N/A"}
+UMSD Transcendence: ${lexerResults.transcendence ?? "N/A"}
+UMSD Ineffability: ${lexerResults.ineffability ?? "N/A"}
+UMSD AI Ontology: ${lexerResults.aiOntology ?? "N/A"}
 LIWC 1st Person Singular: ${lexerResults.i ?? "N/A"}%
 LIWC Cognitive Processes: ${lexerResults.cogproc ?? "N/A"}
+Hesitation / Epistemic Humility: ${lexerResults.hesitation ?? "N/A"}
+Type-Token Ratio: ${lexerResults.ttr ?? "N/A"}
 Word Count: ${lexerResults.wordCount ?? "N/A"}
 
 [TEXT UNDER REVIEW]

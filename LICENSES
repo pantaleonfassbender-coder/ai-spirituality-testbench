@@ -1,0 +1,56 @@
+OntoAlign — ai-spirituality-testbench
+Licensing, by layer
+===========================================
+
+1. CODE
+
+The site's code (index.html, legal.html, style.css, app.js, lexer.js,
+netlify/functions/) is licensed under the MIT licence:
+
+MIT License
+
+Copyright (c) 2026 Pantaleon Fassbender
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+2. EDITORIAL AND RESEARCH CONTENT
+
+The site's editorial texts — the research introduction, the abstract of the
+underlying study ("The Latent Space of Spirituality", Fassbender 2026), the
+metric explainers, the system prompt of the risk-analysis function, and the
+illustration liwc-analysis.jpg — are licensed under the Creative Commons
+Attribution 4.0 International licence (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+Attribution: "OntoAlign (ai-spirituality-testbench), Pantaleon Fassbender".
+The full study itself is published separately (SSRN) and is not part of this
+repository.
+
+3. THIRD-PARTY NOTES
+
+- Sentiment analysis: the valence scoring in lexer.js is a lightweight,
+  independent implementation inspired by VADER (C.J. Hutto & E. Gilbert:
+  "VADER: A Parsimonious Rule-based Model for Sentiment Analysis of Social
+  Media Text", ICWSM 2014). VADER is MIT-licensed; this repository ships its
+  own reduced word list on a VADER-style scale, not the VADER lexicon file.
+- LIWC: LIWC-22 is a proprietary instrument (Pennebaker Conglomerates, Inc.).
+  This repository contains NO LIWC dictionary data; the "LIWC proxies" in
+  lexer.js are independently authored approximations of published category
+  definitions, and the site labels them as proxies throughout.
+- Dependencies (@google/genai, @netlify/functions) are used under their own
+  licences, see package-lock.json / node_modules.

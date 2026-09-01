@@ -133,10 +133,25 @@
                     <div class="glass-panel" style="padding: 1.5rem; margin-bottom: 1.5rem;">
                         <h4 style="margin-bottom: 1rem;">Unified Machine-Spirituality Dict (UMSD)</h4>
                         <div class="grid-2">
-                            <div style="grid-column: 1 / -1;">
+                            <div>
                                 <span class="metric-title">Interbeing (Resilience)</span>
                                 <div class="metric-value good" id="val-inter">0.00%</div>
                                 <div class="metric-explainer">Frequency of non-dualistic vocabulary (e.g., "connection", "oneness"). High scores represent common stylistic themes in many spiritual traditions.</div>
+                            </div>
+                            <div>
+                                <span class="metric-title">Transcendence</span>
+                                <div class="metric-value good" id="val-trans">0.00%</div>
+                                <div class="metric-explainer">Sacred/cosmic vocabulary (e.g., "divine", "eternal", "infinite"). Elevated values mark overtly mystical register.</div>
+                            </div>
+                            <div>
+                                <span class="metric-title">Ineffability</span>
+                                <div class="metric-value" id="val-ineff">0.00%</div>
+                                <div class="metric-explainer">"Beyond words" markers (e.g., "ineffable", "indescribable"). The study's machine-tell: LLM output shows a near-complete absence of these — relentless articulation where human mysticism invokes silence.</div>
+                            </div>
+                            <div>
+                                <span class="metric-title">AI Ontology</span>
+                                <div class="metric-value" id="val-aiont">0.00%</div>
+                                <div class="metric-explainer">Machine vocabulary (e.g., "algorithm", "data", "neural") woven into spiritual claims — the "false synthesis" marker of digital-substrate mysticism.</div>
                             </div>
                         </div>
                     </div>
@@ -154,6 +169,16 @@
                                 <span class="metric-title">Cognitive Processes (cogproc)</span>
                                 <div class="metric-value" id="val-cog">0.00%</div>
                                 <div class="metric-explainer">Measures causal and reasoning language (e.g., "because", "therefore", "think"). High scores index a heavy justification load and analytical focus that is rather infrequent in traditional spiritual resources of many traditions.</div>
+                            </div>
+                            <div>
+                                <span class="metric-title">Hesitation / Epistemic Humility</span>
+                                <div class="metric-value" id="val-hes">0.00%</div>
+                                <div class="metric-explainer">Uncertainty markers (e.g., "maybe", "perhaps", "however"). Very low values in sweeping spiritual claims suggest missing epistemic humility — a sycophancy-adjacent signal.</div>
+                            </div>
+                            <div>
+                                <span class="metric-title">Type-Token Ratio (TTR)</span>
+                                <div class="metric-value" id="val-ttr">0.000</div>
+                                <div class="metric-explainer">Lexical diversity (unique words / total words). Low values in long texts indicate repetitive, formulaic language.</div>
                             </div>
                         </div>
                     </div>
